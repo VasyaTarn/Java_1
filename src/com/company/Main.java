@@ -294,8 +294,8 @@ public class Main {
     }
 
     public enum SortOrder {
-        ASCENDING,  // Возрастание
-        DESCENDING  // Убывание
+        ASCENDING,
+        DESCENDING
     }
 
     private static void printArr(ArrayList<Integer> arr)
