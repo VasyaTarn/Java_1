@@ -3,11 +3,19 @@ package com.company;
 import java.util.ArrayList;
 import java.util.Arrays;
 import java.util.Scanner;
+import java.util.Random;
 
 public class Main {
+
+    private static final double MILE_UNIT = 1609.34;
+    private static final double INCHE_UNIT = 39.3701;
+    private static final double YARD_UNIT = 1.09361;
+
     public static void main(String[] args) {
 
         Scanner scanner = new Scanner(System.in);
+        Random random = new Random();
+
         // --------- 1 ---------
         System.out.println("1.");
         System.out.print("“Your time is limited,\n\tso don’t waste it\n\t\tliving someone else’s life”\n\t\t\tSteve Jobs\n");
@@ -17,10 +25,10 @@ public class Main {
         System.out.println("2.");
 
         System.out.print("value: ");
-        int value = scanner.nextInt();
+        float value = scanner.nextFloat();
 
         System.out.print("percent: ");
-        int percent = scanner.nextInt();
+        float percent = scanner.nextFloat();
 
         System.out.println(value * percent / 100);
 
@@ -28,13 +36,24 @@ public class Main {
         // --------- 3 ---------
         System.out.println("3.");
 
-        int a = scanner.nextInt();
+        int a;
+        int b;
+        int c;
 
-        int b = scanner.nextInt();
+        do
+        {
+            System.out.print("a = ");
+            a = scanner.nextInt();
 
-        int c = scanner.nextInt();
+            System.out.print("b = ");
+            b = scanner.nextInt();
 
-        System.out.printf("%d%d%d", a, b, c);
+            System.out.print("c = ");
+            c = scanner.nextInt();
+        }while (a <= 0 || b <= 0 || c <= 0);
+
+        int convertNumber_3 = Integer.parseInt("" + a + b + c);
+        System.out.print(convertNumber_3);
 
         System.out.println();
         // --------- 4 ---------
@@ -61,17 +80,25 @@ public class Main {
             digits[0] = digits[digits.length - 1];
             digits[digits.length - 1] = tempDigit;
 
+            String str = "";
             for (int digit : digits) {
-                System.out.print(digit);
+                str += digit;
             }
+
+            int convertNumber_4 = Integer.parseInt(str);
+            System.out.print(convertNumber_4 + 1);
         }
 
         System.out.println();
         // --------- 5 ---------
         System.out.println("5.");
 
-        System.out.print("Month number: ");
-        int monthNumber = scanner.nextInt();
+        int monthNumber;
+        do
+        {
+            System.out.print("Month number: ");
+            monthNumber = scanner.nextInt();
+        } while (monthNumber < 1 || monthNumber > 12);
 
         if(monthNumber > 1 && monthNumber < 12)
         {
@@ -101,9 +128,13 @@ public class Main {
         // --------- 6 ---------
         System.out.println("6.");
 
+        double meters;
 
-        System.out.print("Number of meters: ");
-        double meters = scanner.nextDouble();
+        do
+        {
+            System.out.print("Number of meters: ");
+            meters = scanner.nextDouble();
+        }while (meters <= 0);
 
         System.out.println("Select the unit of measurement to convert:");
         System.out.println("1: Miles");
@@ -114,15 +145,15 @@ public class Main {
 
         switch (choice) {
             case 1:
-                double miles = meters / 1609.34;
+                double miles = meters / MILE_UNIT;
                 System.out.println(miles);
                 break;
             case 2:
-                double inches = meters * 39.3701;
+                double inches = meters * INCHE_UNIT;
                 System.out.println(inches);
                 break;
             case 3:
-                double yards = meters * 1.09361;
+                double yards = meters * YARD_UNIT;
                 System.out.println(yards);
                 break;
             default:
@@ -165,10 +196,16 @@ public class Main {
         // --------- 8 ---------
         System.out.println("8.");
 
-        System.out.print("Start of range: ");
-        int start = scanner.nextInt();
-        System.out.print("End of range: ");
-        int end = scanner.nextInt();
+        int start;
+        int end;
+
+        do
+        {
+            System.out.print("Start of range: ");
+            start = scanner.nextInt();
+            System.out.print("End of range: ");
+            end = scanner.nextInt();
+        }while(start >= end || start < 2 || end > 9);
 
         for (int i = start; i <= end; i++) {
             for (int j = 1; j <= 10; j++) {
@@ -181,10 +218,16 @@ public class Main {
         // --------- 9 ---------
         System.out.println("9.");
 
-        int[] arr = new int[] {5, -2, 16, 0, 23, 54, 0, -5423, 24, -87, 0};
+        int[] arr = new int[20];
 
-        int max = Arrays.stream(arr).max().getAsInt();
-        int min = Arrays.stream(arr).min().getAsInt();
+        for (int i = 0; i < arr.length; i++) {
+            arr[i] = random.nextInt(201) - 100;
+        }
+
+        System.out.println(Arrays.toString(arr));
+
+        int max = searchMax(arr);
+        int min = searchMin(arr);
         int nPositive = 0;
         int nNegative = 0;
         int nZero = 0;
@@ -211,34 +254,34 @@ public class Main {
         // --------- 10 ---------
         System.out.println("10.");
 
-        int[] array = new int[] {3, 53, 93, 954, -43, -1, -4, 3, 223, 513, -54, -45, 77};
+        int[] array = new int[20];
 
-        ArrayList<Integer> arrEven = new ArrayList<>();
-        ArrayList<Integer> arrOdd = new ArrayList<>();
-        ArrayList<Integer> arrPositive = new ArrayList<>();
-        ArrayList<Integer> arrNegative = new ArrayList<>();
+        for (int i = 0; i < array.length; i++) {
+            array[i] = random.nextInt(201) - 100;
+        }
 
-        for(int i : array)
-        {
-            if(i % 2 == 0 && i > 0)
-            {
-                arrEven.add(i);
-                arrPositive.add(i);
+        System.out.println(Arrays.toString(array));
+
+        int[] arrEven = new int[20];
+        int[] arrOdd = new int[20];
+        int[] arrPositive = new int[20];
+        int[] arrNegative = new int[20];
+
+        int evenIndex = 0;
+        int oddIndex = 0;
+        int positiveIndex = 0;
+        int negativeIndex = 0;
+
+        for (int i : array) {
+            if (i % 2 == 0) {
+                arrEven[evenIndex++] = i;
+            } else {
+                arrOdd[oddIndex++] = i;
             }
-            else if(i % 2 == 0 && i < 0)
-            {
-                arrEven.add(i);
-                arrNegative.add(i);
-            }
-            else if(i % 2 != 0 && i < 0)
-            {
-                arrOdd.add(i);
-                arrNegative.add(i);
-            }
-            else if(i % 2 != 0 && i > 0)
-            {
-                arrOdd.add(i);
-                arrPositive.add(i);
+            if (i > 0) {
+                arrPositive[positiveIndex++] = i;
+            } else if (i < 0) {
+                arrNegative[negativeIndex++] = i;
             }
         }
 
@@ -267,7 +310,13 @@ public class Main {
         System.out.println();
         // --------- 12 ---------
         System.out.println("12.");
-        int[] array_12 = {3, 53, 93, 954, -43, -1, -4, 3, 223, 513, -54, -45, 77};
+        int[] array_12 = new int[20];
+
+        for (int i = 0; i < array_12.length; i++) {
+            array_12[i] = random.nextInt(201) - 100;
+        }
+
+        System.out.println(Arrays.toString(array_12));
 
         System.out.println("Sort order (1 - ascending, 2 - descending): ");
         int choice_12 = scanner.nextInt();
@@ -298,11 +347,14 @@ public class Main {
         DESCENDING
     }
 
-    private static void printArr(ArrayList<Integer> arr)
+    private static void printArr(int[] arr)
     {
         for(int i : arr)
         {
-            System.out.print(i + " ");
+            if(i != 0)
+            {
+                System.out.print(i + " ");
+            }
         }
         System.out.println();
     }
@@ -341,5 +393,33 @@ public class Main {
                 array[array.length - 1 - i] = temp;
             }
         }
+    }
+
+    private static int searchMax(int[] arr)
+    {
+        int max = arr[0];
+        for (int i = 1; i < arr.length; i++)
+        {
+            if(arr[i] > max)
+            {
+                max = arr[i];
+            }
+        }
+
+        return max;
+    }
+
+    private static int searchMin(int[] arr)
+    {
+        int min = arr[0];
+        for (int i = 1; i < arr.length; i++)
+        {
+            if(arr[i] < min)
+            {
+                min = arr[i];
+            }
+        }
+
+        return min;
     }
 }
